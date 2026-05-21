@@ -21,7 +21,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public List<Usuario> lisarTodos(){
+    public List<Usuario> listarTodos(){
         return usuarioRepository.findAll();
     }
 
@@ -47,6 +47,10 @@ public class UsuarioService {
 
 
     public void deletar(Long id){
+        if (!usuarioRepository.existsById(id)){
+            throw new UsuarioNaoEncontradoException("Usuário com ID" + id + " não encontrado");
+        }
+
         usuarioRepository.deleteById(id);
     }
 
