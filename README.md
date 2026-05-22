@@ -9,6 +9,9 @@ API REST desenvolvida para gerenciamento de usuários, implementando operações
 - Spring Data JPA
 - Banco de dados SQL
 - Maven
+- Swagger/OpenAPI
+- JUnit 5
+- Mockito
 
 ##  Funcionalidades
 
@@ -17,6 +20,8 @@ API REST desenvolvida para gerenciamento de usuários, implementando operações
 - Buscar usuário por ID
 - Atualizar dados do usuário
 - Deletar usuário
+- Tratamento de exceções
+- Validações básicas
 
 ##  Endpoints
 
@@ -27,6 +32,42 @@ API REST desenvolvida para gerenciamento de usuários, implementando operações
 | GET    | /usuarios/{id}| Buscar usuário por ID      |
 | PUT    | /usuarios/{id}| Atualizar usuário          |
 | DELETE | /usuarios/{id}| Deletar usuário            |
+
+
+## Documentação Swagger
+Após iniciar a aplicação:
+
+http://localhost:8080/swagger-ui.html
+
+---
+## Testes Unitários
+
+O projeto possui testes unitários utilizando:
+
+- JUnit 5
+- Mockito
+
+Testes implementados:
+
+- salvar usuário
+- buscar usuário po ID
+- listar usuários
+- deletar usuário
+- validação de exceções
+
+---
+
+## Banco de Dados
+
+Banco de utilizado:
+
+- MySQL
+
+Configuração realizada no arquivo:
+
+src/main/resources/application.properties
+
+---
 
 ## ⚙️ Como executar o projeto
 
