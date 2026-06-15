@@ -7,14 +7,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.gabi.crudusuarios.exception.CpfJaCadastradoException;
+import static org.mockito.Mockito.never;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith({MockitoExtension.class})
@@ -115,6 +116,8 @@ public class UsuarioServiceTest {
         verify(usuarioRepository).findById(1L);
 
         verify(usuarioRepository).save(usuarioExistente);
+
+       // System.out.println("Nome: " + resultado.getNome());
     }
 
     @Test
@@ -128,18 +131,40 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    void deveLancarErroAoDeletarUsuarioInexistente(){
+    void deveLancarErroAoDeletarUsuarioInexistente() {
 
         Long id = 99L;
 
         when(usuarioRepository.existsById(id))
                 .thenReturn(false);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () ->{
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             usuarioService.deletar(id);
         });
         assertEquals("Usuário com ID99 não encontrado", exception.getMessage());
 
         verify(usuarioRepository).existsById(id);
+
     }
+
+    @Test
+    void deveLancarExcecaoQuandoCpfJaEstiverCastrado(){
+        Usuario usuario = new Usuario();
+        usuario.setNome("Gabriela");
+        usuario.setEmail("gabi@email.com");
+        usuario.setCpf("REMOVED_PASSWORD78900");
+
+        when(usuarioRepository.existsByCpf(usuario.getCpf())).thenReturn(true);
+
+        assertThrows(CpfJaCadastradoException.class, () -> {
+            usuarioService.salvar(usuario);
+        });
+
+        verify(usuarioRepository, never()).save(usuario);
+
+
+        }
+
+
+
 }

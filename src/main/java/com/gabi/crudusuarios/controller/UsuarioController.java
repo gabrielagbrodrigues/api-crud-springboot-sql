@@ -2,6 +2,7 @@ package com.gabi.crudusuarios.controller;
 
 import com.gabi.crudusuarios.model.Usuario;
 import com.gabi.crudusuarios.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario){
+    public Usuario criar(@Valid @RequestBody Usuario usuario){
 
         return usuarioService.salvar(usuario);
     }

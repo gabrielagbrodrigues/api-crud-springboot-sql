@@ -1,9 +1,11 @@
 package com.gabi.crudusuarios.service;
 
+import com.gabi.crudusuarios.exception.CpfJaCadastradoException;
 import com.gabi.crudusuarios.exception.UsuarioNaoEncontradoException;
 import com.gabi.crudusuarios.model.Usuario;
 import com.gabi.crudusuarios.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -18,6 +20,10 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario){
+        if (usuarioRepository.existsByCpf(usuario.getCpf())){
+            throw new CpfJaCadastradoException("CPF já cadastrado");
+        }
+
         return usuarioRepository.save(usuario);
     }
 
