@@ -20,8 +20,10 @@ API REST desenvolvida para gerenciamento de usuários, implementando operações
 - Buscar usuário por ID
 - Atualizar dados do usuário
 - Deletar usuário
-- Tratamento de exceções
-- Validações básicas
+- Validação de CPF único
+- Validação de campos obrigatórios
+- Tratamento global de exceções
+- Respostas HTTP padronizadas
 
 ##  Endpoints
 
@@ -47,13 +49,22 @@ O projeto possui testes unitários utilizando:
 - JUnit 5
 - Mockito
 
-Testes implementados:
+## Testes implementados:
 
-- salvar usuário
-- buscar usuário po ID
-- listar usuários
-- deletar usuário
-- validação de exceções
+- Salvar usuário com sucesso
+- Buscar usuário por ID
+- Listar usuários
+- Deletar usuário
+- Usuário não encontrado
+- CPF já cadastrado
+- Tratamento de exceções
+
+## Regras de Negócio:
+
+- Não é permitido cadastrar dois usuários com o mesmo CPF.
+- O CPF é validado antes da persistência.
+- Usuários inexistentes retornam HTTP 404
+- Tentativas de cadastro duplicado retornam HTTP 409.
 
 ---
 
